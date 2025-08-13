@@ -108,7 +108,7 @@ const handleClick = (event) => {
     const squareIndex = event.target.getAttribute('id')
     console.log(turn)
     
-    if (event.target.value === 'X' || event.target.value === 'O'){
+    if (event.target.textContent === 'X' || event.target.textContent === 'O'){
         return
     } else {
         placePiece(squareIndex)
