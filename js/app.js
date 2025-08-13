@@ -1,6 +1,6 @@
 /*-------------------------------- Constants --------------------------------*/
 
-const board = [
+let board = [
     '', '', '', 
     '', '', '', 
     '', '', ''
@@ -27,6 +27,7 @@ let tie = false
 
 const squareEls = document.querySelectorAll('.sqr')
 const messageEl = document.querySelector('#message')
+const resetBtnEl = document.querySelector('#reset')
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -52,6 +53,15 @@ const render = () => {
 }
 
 const init = () => {
+    
+    board = [
+    '', '', '', 
+    '', '', '', 
+    '', '', ''
+    ]
+    turn = 'X'
+    winner = false
+    tie = false
 
     render()
 }
@@ -62,8 +72,34 @@ const placePiece = (idx) => {
 
 const checkForWinner = () => {
     winningCombos.forEach((combo) => {
+        const space1 = combo[0]
+        const space2 = combo[1]
+        const space3 = combo[2]
+        
+        if (board[space1] !== '' && board[space1] === board[space2] && board[space1] === board[space3]) {
+            winner = true
+        }
 
     })
+}
+
+const checkForTie = () => {
+    if (winner === true) {
+        return
+    }
+    if (board.find((empty) => empty === '') === '') {
+        tie = false
+    } else {
+        tie = true
+    }
+}
+
+const switchPlayerTurn = () => {
+    if (winner === true) {
+        return
+    } else {
+        turn !== 'X' ? turn = 'X' : turn = 'O'
+    }
 }
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -76,7 +112,13 @@ const handleClick = (event) => {
         return
     } else {
         placePiece(squareIndex)
+        checkForWinner()
+        console.log(winner)
+        checkForTie()
+        switchPlayerTurn()
+        console.log(turn)
         console.log(board)
+        render()
     }
 
 }
@@ -85,6 +127,9 @@ squareEls.forEach((square) => {
     square.addEventListener('click', handleClick)
 })
 
+resetBtnEl.addEventListener('click', () => {
+    init()
+})
 
 init()
 

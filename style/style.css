@@ -18,3 +18,9 @@ body {
   font-size: 64px;
   text-align: center;
 }
+
+#reset {
+  width: 30%;
+  height: 40px;
+  margin: 10px;
+}
