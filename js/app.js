@@ -84,7 +84,7 @@ const checkForWinner = () => {
 }
 
 let checkWin
-
+// uses the some and every array method to check for a win state
 const checkForWinnerEvery = () => {
     winningCombos.some((combo) => {
         return checkWin = combo.every((place) => {
@@ -105,7 +105,7 @@ const checkForTie = () => {
 }
 
 let checkTie
-
+// uses the every array method to check for a tie state
 const checkForTieEvery = () => {
     checkTie = board.every((space) => {
         return space !== ''
@@ -130,7 +130,7 @@ const handleClick = (event) => {
     // const squareIndex = event.target.getAttribute('id')
     console.log(turn)
     
-    if (event.target.textContent === 'X' || event.target.textContent === 'O'){
+    if (event.target.textContent === 'X' || event.target.textContent === 'O' || winner){
         return
     } else {
         placePiece(squareIndex)
