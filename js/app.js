@@ -62,7 +62,7 @@ const init = () => {
     turn = 'X'
     winner = false
     tie = false
-
+    
     render()
 }
 
@@ -83,6 +83,16 @@ const checkForWinner = () => {
     })
 }
 
+let checkWin
+
+const checkForWinnerEvery = () => {
+    winningCombos.some((combo) => {
+        return checkWin = combo.every((place) => {
+            return board[place] !== '' && board[place] === board[combo[0]]
+        })
+    })
+}
+
 const checkForTie = () => {
     if (winner === true) {
         return
@@ -92,6 +102,17 @@ const checkForTie = () => {
     } else {
         tie = true
     }
+}
+
+let checkTie
+
+const checkForTieEvery = () => {
+    checkTie = board.every((space) => {
+        return space !== ''
+    })
+
+    console.log(checkTie)
+    return checkTie
 }
 
 const switchPlayerTurn = () => {
@@ -105,15 +126,19 @@ const switchPlayerTurn = () => {
 /*----------------------------- Event Listeners -----------------------------*/
 
 const handleClick = (event) => {
-    const squareIndex = event.target.getAttribute('id')
+    const squareIndex = event.target.id
+    // const squareIndex = event.target.getAttribute('id')
     console.log(turn)
     
     if (event.target.textContent === 'X' || event.target.textContent === 'O'){
         return
     } else {
         placePiece(squareIndex)
+        // checkForWinnerEvery()
         checkForWinner()
         console.log(winner)
+        console.log(checkWin)
+        checkForTieEvery()
         checkForTie()
         switchPlayerTurn()
         console.log(turn)
